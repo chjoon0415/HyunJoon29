@@ -85,19 +85,21 @@ public sealed class ProjectileController : MonoBehaviour
 
     private void TryDamageEnemy(Collider2D other)
     {
-        if (hasHit || other.gameObject.layer != LayerMask.NameToLayer("Enemy"))
+        if (hasHit)
         {
             return;
         }
 
-        IDamageable damageable = other.GetComponentInParent<IDamageable>();
-        if (damageable == null)
+        // PlayerHealth나 다른 ProjectileController에는 MonsterController가 없으므로
+        // 서로 겹쳐도 아무 상호작용을 하지 않습니다.
+        MonsterController monster = other.GetComponentInParent<MonsterController>();
+        if (monster == null)
         {
             return;
         }
 
         hasHit = true;
-        damageable.TakeDamage(damage);
+        monster.TakeDamage(damage);
         Destroy(gameObject);
     }
 
