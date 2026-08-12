@@ -103,7 +103,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: "1-04_\uC2AC\uB77C\uC784 \uBAAC\uC2A4\uD130(1)-Sheet_0"
+      name: Monster1_0
       rect:
         serializedVersion: 2
         x: 0
@@ -125,7 +125,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "1-04_\uC2AC\uB77C\uC784 \uBAAC\uC2A4\uD130(1)-Sheet_1"
+      name: Monster1_1
       rect:
         serializedVersion: 2
         x: 2411
@@ -160,8 +160,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      "1-04_\uC2AC\uB77C\uC784 \uBAAC\uC2A4\uD130(1)-Sheet_0": 5763200105778632698
-      "1-04_\uC2AC\uB77C\uC784 \uBAAC\uC2A4\uD130(1)-Sheet_1": -165736936050608638
+      Monster1_0: 5763200105778632698
+      Monster1_1: -165736936050608638
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

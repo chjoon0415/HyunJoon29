@@ -12,6 +12,10 @@ public sealed class MonsterController : MonoBehaviour, IDamageable
     [SerializeField, Min(0.01f)] private float maxHP = 3f;
     [SerializeField, Min(0f)] private float attackDamage = 10f;
 
+    [Header("Visual")]
+    [SerializeField] private bool flipSpriteBasedOnTarget;
+    [SerializeField] private SpriteRenderer spriteRenderer;
+
     private Rigidbody2D body;
     private Transform target;
     private Action<MonsterController> destroyedCallback;
@@ -21,6 +25,9 @@ public sealed class MonsterController : MonoBehaviour, IDamageable
     private void Awake()
     {
         body = GetComponent<Rigidbody2D>();
+        if (spriteRenderer == null)
+            spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+
         body.gravityScale = 0f;
         body.freezeRotation = true;
         health = maxHP;
@@ -32,6 +39,7 @@ public sealed class MonsterController : MonoBehaviour, IDamageable
         destroyedCallback = onDestroyed;
         health = maxHP;
         isDead = false;
+        UpdateSpriteDirection();
     }
 
     private void FixedUpdate()
@@ -44,6 +52,16 @@ public sealed class MonsterController : MonoBehaviour, IDamageable
 
         Vector2 direction = ((Vector2)target.position - body.position).normalized;
         body.linearVelocity = direction * moveSpeed;
+        UpdateSpriteDirection();
+    }
+
+    private void UpdateSpriteDirection()
+    {
+        if (!flipSpriteBasedOnTarget || spriteRenderer == null || target == null)
+            return;
+
+        // The default image is used on the player's left and flipped on the right.
+        spriteRenderer.flipX = body.position.x > target.position.x;
     }
 
     public void TakeDamage(float damage)

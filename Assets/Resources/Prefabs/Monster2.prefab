@@ -196,3 +196,5 @@ MonoBehaviour:
   moveSpeed: 2
   maxHP: 15
   attackDamage: 10
+  flipSpriteBasedOnTarget: 1
+  spriteRenderer: {fileID: 5019915471765934938}
