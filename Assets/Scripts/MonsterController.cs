@@ -58,6 +58,12 @@ public sealed class MonsterController : MonoBehaviour, IDamageable
 
     private void FixedUpdate()
     {
+        if (LevelUpPanelController.IsGamePaused)
+        {
+            body.linearVelocity = Vector2.zero;
+            return;
+        }
+
         if (isDead || target == null)
         {
             body.linearVelocity = Vector2.zero;
@@ -80,7 +86,7 @@ public sealed class MonsterController : MonoBehaviour, IDamageable
 
     public void TakeDamage(float damage)
     {
-        if (isDead || damage <= 0f)
+        if (LevelUpPanelController.IsGamePaused || isDead || damage <= 0f)
             return;
 
         health -= damage;
@@ -133,7 +139,7 @@ public sealed class MonsterController : MonoBehaviour, IDamageable
 
     private void TryDamagePlayer(Collider2D other)
     {
-        if (isDead || attackDamage <= 0f)
+        if (LevelUpPanelController.IsGamePaused || isDead || attackDamage <= 0f)
         {
             return;
         }

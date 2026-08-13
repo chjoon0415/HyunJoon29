@@ -169,7 +169,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e490c2ae06200c42b4bcd4a66af886d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ProjectileController
-  damage: 10
+  attackPowerPercent: 100
   speed: 8
   lifetime: 3
   scale: 0.5

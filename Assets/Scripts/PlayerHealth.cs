@@ -52,7 +52,7 @@ public sealed class PlayerHealth : MonoBehaviour
     /// <summary>무적 상태가 아닐 때 피해를 적용합니다. 실제로 피해를 받았으면 true를 반환합니다.</summary>
     public bool TakeDamage(float damage)
     {
-        if (damage <= 0f || isDead || isInvincible)
+        if (LevelUpPanelController.IsGamePaused || damage <= 0f || isDead || isInvincible)
         {
             return false;
         }

@@ -31,6 +31,13 @@ public sealed class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        if (LevelUpPanelController.IsGamePaused)
+        {
+            movementInput = Vector2.zero;
+            UpdateAnimator(false);
+            return;
+        }
+
         Vector2 rawInput = ReadKeyboardInput();
         bool isMoving = rawInput.sqrMagnitude > 0f;
 
@@ -47,6 +54,9 @@ public sealed class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (LevelUpPanelController.IsGamePaused)
+            return;
+
         Vector2 displacement = movementInput * (moveSpeed * Time.fixedDeltaTime);
         body.MovePosition(body.position + displacement);
     }

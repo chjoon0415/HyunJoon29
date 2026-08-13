@@ -53,6 +53,9 @@ public sealed class MonsterSpawnManager : MonoBehaviour
 
     private void Update()
     {
+        if (LevelUpPanelController.IsGamePaused)
+            return;
+
         if (player == null || gameplayCamera == null)
             return;
 

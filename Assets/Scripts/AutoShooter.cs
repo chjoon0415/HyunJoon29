@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [DisallowMultipleComponent]
+[RequireComponent(typeof(PlayerAttackStats))]
 public sealed class AutoShooter : MonoBehaviour
 {
     [Header("Firing")]
@@ -17,6 +18,12 @@ public sealed class AutoShooter : MonoBehaviour
 
     private Vector2 lastInputDirection = Vector2.down;
     private float nextFireTime;
+    private PlayerAttackStats attackStats;
+
+    private void Awake()
+    {
+        attackStats = GetComponent<PlayerAttackStats>();
+    }
 
     private void OnEnable()
     {
@@ -25,6 +32,9 @@ public sealed class AutoShooter : MonoBehaviour
 
     private void Update()
     {
+        if (LevelUpPanelController.IsGamePaused)
+            return;
+
         Vector2 input = ReadKeyboardInput();
         if (input.sqrMagnitude > 0f)
         {
@@ -55,7 +65,7 @@ public sealed class AutoShooter : MonoBehaviour
             ? baseRotationReference.eulerAngles.z
             : 0f;
 
-        projectile.Initialize(lastInputDirection, baseRotation);
+        projectile.Initialize(lastInputDirection, attackStats, baseRotation);
     }
 
     private static Vector2 ReadKeyboardInput()

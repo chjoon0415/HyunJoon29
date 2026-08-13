@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public interface IDamageable
 {
@@ -10,7 +11,8 @@ public interface IDamageable
 public sealed class ProjectileController : MonoBehaviour
 {
     [Header("Projectile Stats")]
-    [SerializeField, Min(0f)] private float damage = 1f;
+    [FormerlySerializedAs("damage")]
+    [SerializeField, Min(0f)] private float attackPowerPercent = 100f;
     [SerializeField, Min(0f)] private float speed = 8f;
     [SerializeField, Min(0f)] private float lifetime = 3f;
     [SerializeField, Min(0.01f)] private float scale = 1f;
@@ -20,6 +22,7 @@ public sealed class ProjectileController : MonoBehaviour
     private Vector2 moveDirection = Vector2.right;
     private bool hasHit;
     private float baseRotation;
+    private PlayerAttackStats attackStats;
 
     private void Awake()
     {
@@ -36,7 +39,7 @@ public sealed class ProjectileController : MonoBehaviour
     }
 
     /// <summary>Called by AutoShooter immediately after this projectile is created.</summary>
-    public void Initialize(Vector2 direction, float rotationOffset = 0f)
+    public void Initialize(Vector2 direction, PlayerAttackStats attackStats, float rotationOffset = 0f)
     {
         if (direction.sqrMagnitude > 0f)
         {
@@ -44,6 +47,7 @@ public sealed class ProjectileController : MonoBehaviour
         }
 
         baseRotation = rotationOffset;
+        this.attackStats = attackStats;
         ApplySettings();
     }
 
@@ -85,7 +89,7 @@ public sealed class ProjectileController : MonoBehaviour
 
     private void TryDamageEnemy(Collider2D other)
     {
-        if (hasHit)
+        if (LevelUpPanelController.IsGamePaused || hasHit)
         {
             return;
         }
@@ -99,6 +103,9 @@ public sealed class ProjectileController : MonoBehaviour
         }
 
         hasHit = true;
+        float damage = attackStats != null
+            ? attackStats.CalculateDamage(attackPowerPercent)
+            : 0f;
         monster.TakeDamage(damage);
         Destroy(gameObject);
     }

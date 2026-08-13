@@ -15,6 +15,9 @@ public sealed class ExpOrbController : MonoBehaviour
 
     private void Update()
     {
+        if (LevelUpPanelController.IsGamePaused)
+            return;
+
         ExpDropManager manager = ExpDropManager.Instance;
         if (manager == null || !manager.isActiveAndEnabled)
             return;
@@ -42,7 +45,7 @@ public sealed class ExpOrbController : MonoBehaviour
 
     private void Collect(ExpDropManager manager)
     {
-        if (isCollected)
+        if (LevelUpPanelController.IsGamePaused || isCollected)
             return;
 
         isCollected = true;
