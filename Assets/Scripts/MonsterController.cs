@@ -6,11 +6,25 @@ using UnityEngine.Serialization;
 [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
 public sealed class MonsterController : MonoBehaviour, IDamageable
 {
+    [Serializable]
+    private sealed class ExpOrbDrop
+    {
+        [SerializeField] private ExpOrbController orbPrefab;
+        [SerializeField, Range(0f, 100f)] private float dropChance;
+
+        public ExpOrbController OrbPrefab => orbPrefab;
+        public float DropChance => dropChance;
+    }
+
     [Header("Monster Stats")]
     [SerializeField, Min(0f)] private float moveSpeed = 2f;
     [FormerlySerializedAs("maxHealth")]
     [SerializeField, Min(0.01f)] private float maxHP = 3f;
     [SerializeField, Min(0f)] private float attackDamage = 10f;
+
+    [Header("Experience Orb Drops")]
+    [Tooltip("A single 0-100 roll checks entries from top to bottom. Unused probability means no orb drops.")]
+    [SerializeField] private ExpOrbDrop[] expOrbDrops = Array.Empty<ExpOrbDrop>();
 
     [Header("Visual")]
     [SerializeField] private bool flipSpriteBasedOnTarget;
@@ -73,7 +87,27 @@ public sealed class MonsterController : MonoBehaviour, IDamageable
         if (health <= 0f)
         {
             isDead = true;
+            TryDropExperienceOrb();
             Destroy(gameObject);
+        }
+    }
+
+    private void TryDropExperienceOrb()
+    {
+        float roll = UnityEngine.Random.Range(0f, 100f);
+        float cumulativeChance = 0f;
+
+        foreach (ExpOrbDrop drop in expOrbDrops)
+        {
+            if (drop == null || drop.OrbPrefab == null || drop.DropChance <= 0f)
+                continue;
+
+            cumulativeChance += drop.DropChance;
+            if (roll < cumulativeChance)
+            {
+                Instantiate(drop.OrbPrefab, transform.position, Quaternion.identity);
+                return;
+            }
         }
     }
 

@@ -196,5 +196,12 @@ MonoBehaviour:
   moveSpeed: 2
   maxHP: 15
   attackDamage: 10
+  expOrbDrops:
+  - orbPrefab: {fileID: 310000000000000001, guid: 4b1aece6e3f2db146ad1c613625c975f, type: 3}
+    dropChance: 60
+  - orbPrefab: {fileID: 310000000000000001, guid: 232231d656a92474c96379d355a2ade6, type: 3}
+    dropChance: 35
+  - orbPrefab: {fileID: 310000000000000001, guid: 56929a94b831c864fb865d5c74931bd2, type: 3}
+    dropChance: 5
   flipSpriteBasedOnTarget: 1
   spriteRenderer: {fileID: 5019915471765934938}
