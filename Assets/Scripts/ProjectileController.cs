@@ -1,11 +1,6 @@
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public interface IDamageable
-{
-    void TakeDamage(float damage);
-}
-
 [DisallowMultipleComponent]
 [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
 public sealed class ProjectileController : MonoBehaviour
@@ -23,6 +18,7 @@ public sealed class ProjectileController : MonoBehaviour
     private bool hasHit;
     private float baseRotation;
     private PlayerAttackStats attackStats;
+    private PlayerDamageService damageService;
 
     private void Awake()
     {
@@ -39,7 +35,12 @@ public sealed class ProjectileController : MonoBehaviour
     }
 
     /// <summary>Called by AutoShooter immediately after this projectile is created.</summary>
-    public void Initialize(Vector2 direction, PlayerAttackStats attackStats, float rotationOffset = 0f)
+    public void Initialize(
+        Vector2 direction,
+        PlayerAttackStats attackStats,
+        PlayerDamageService damageService,
+        float rotationOffset = 0f,
+        Sprite overrideSprite = null)
     {
         if (direction.sqrMagnitude > 0f)
         {
@@ -48,6 +49,9 @@ public sealed class ProjectileController : MonoBehaviour
 
         baseRotation = rotationOffset;
         this.attackStats = attackStats;
+        this.damageService = damageService;
+        if (overrideSprite != null && spriteRenderer != null)
+            spriteRenderer.sprite = overrideSprite;
         ApplySettings();
     }
 
@@ -94,10 +98,8 @@ public sealed class ProjectileController : MonoBehaviour
             return;
         }
 
-        // PlayerHealth나 다른 ProjectileController에는 MonsterController가 없으므로
-        // 서로 겹쳐도 아무 상호작용을 하지 않습니다.
-        MonsterController monster = other.GetComponentInParent<MonsterController>();
-        if (monster == null)
+        IPlayerAttackTarget target = PlayerAttackTargetUtility.FindInParents(other);
+        if (target == null)
         {
             return;
         }
@@ -106,7 +108,8 @@ public sealed class ProjectileController : MonoBehaviour
         float damage = attackStats != null
             ? attackStats.CalculateDamage(attackPowerPercent)
             : 0f;
-        monster.TakeDamage(damage);
+        if (damageService != null)
+            damageService.DealDamage(target, damage);
         Destroy(gameObject);
     }
 

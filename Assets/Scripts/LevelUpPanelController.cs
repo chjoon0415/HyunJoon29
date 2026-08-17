@@ -11,6 +11,12 @@ public sealed class LevelUpPanelController : MonoBehaviour
     [Header("References")]
     [SerializeField] private ExpDropManager experienceManager;
     [SerializeField] private PlayerAttackStats playerAttackStats;
+    [SerializeField] private PlayerDamageService playerDamageService;
+    [SerializeField] private PlayerMagnet playerMagnet;
+    [SerializeField] private AutoShooter autoShooter;
+    [SerializeField] private FireRingSystem fireRingSystem;
+    [SerializeField] private ExplosionController explosionController;
+    [SerializeField] private DOT_FIREController fireDotController;
     [SerializeField] private TextAsset levelUpCardCsv;
     [SerializeField] private GameObject levelUpPanel;
     [SerializeField] private Button[] cards = new Button[3];
@@ -55,14 +61,17 @@ public sealed class LevelUpPanelController : MonoBehaviour
 
     private void Start()
     {
-        if (experienceManager == null || playerAttackStats == null || levelUpPanel == null || cardTable == null ||
+        if (experienceManager == null || playerAttackStats == null || playerDamageService == null ||
+            playerMagnet == null || autoShooter == null || fireRingSystem == null || explosionController == null ||
+            fireDotController == null ||
+            levelUpPanel == null || cardTable == null ||
             cards == null || cards.Length < 3 || cards[0] == null || cards[1] == null || cards[2] == null ||
             cardImages == null || cardDescriptions == null ||
             cardImages[0] == null || cardImages[1] == null || cardImages[2] == null ||
             cardDescriptions[0] == null || cardDescriptions[1] == null || cardDescriptions[2] == null)
         {
             Debug.LogError(
-                "LevelUpPanelController needs ExpDropManager, PlayerAttackStats, LevelUpCard.csv, " +
+                "LevelUpPanelController needs ExpDropManager, player combat/magnet components, LevelUpCard.csv, " +
                 "Panel_LevelUp, and Card1~3 with CardImage/CardDesc children.", this);
             enabled = false;
         }
@@ -209,6 +218,24 @@ public sealed class LevelUpPanelController : MonoBehaviour
             case LevelUpCardEffect.ATKUP:
                 playerAttackStats.SetAttackPercent(selectedCard.Value);
                 break;
+            case LevelUpCardEffect.HEAL:
+                playerDamageService.SetHealPercent(selectedCard.Value);
+                break;
+            case LevelUpCardEffect.MAGNET:
+                playerMagnet.SetRadiusPercent(selectedCard.Value);
+                break;
+            case LevelUpCardEffect.PLUS1:
+                autoShooter.SetProjectileCount(selectedCard.Value);
+                break;
+            case LevelUpCardEffect.FIRERING:
+                fireRingSystem.SetFireBallCount(selectedCard.Value);
+                break;
+            case LevelUpCardEffect.EXPLOSION:
+                explosionController.SetTriggerChance(selectedCard.Value);
+                break;
+            case LevelUpCardEffect.INCHANTFRIE:
+                fireDotController.SetAttackPowerPercent(selectedCard.Value);
+                break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(selectedCard.Effect), selectedCard.Effect, null);
         }
@@ -241,6 +268,18 @@ public sealed class LevelUpPanelController : MonoBehaviour
             experienceManager = FindFirstObjectByType<ExpDropManager>();
         if (playerAttackStats == null)
             playerAttackStats = FindFirstObjectByType<PlayerAttackStats>();
+        if (playerDamageService == null)
+            playerDamageService = FindFirstObjectByType<PlayerDamageService>();
+        if (playerMagnet == null)
+            playerMagnet = FindFirstObjectByType<PlayerMagnet>();
+        if (autoShooter == null)
+            autoShooter = FindFirstObjectByType<AutoShooter>();
+        if (fireRingSystem == null)
+            fireRingSystem = FindFirstObjectByType<FireRingSystem>();
+        if (explosionController == null)
+            explosionController = FindFirstObjectByType<ExplosionController>();
+        if (fireDotController == null)
+            fireDotController = FindFirstObjectByType<DOT_FIREController>();
 
         Transform[] descendants = GetComponentsInChildren<Transform>(true);
         foreach (Transform descendant in descendants)

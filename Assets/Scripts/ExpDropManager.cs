@@ -6,9 +6,6 @@ public sealed class ExpDropManager : MonoBehaviour
 {
     public static ExpDropManager Instance { get; private set; }
 
-    [Header("Orb Magnet")]
-    [SerializeField, Min(0f)] private float magnetRange = 5f;
-
     [Header("Experience")]
     [SerializeField] private TextAsset levelXpCsv;
     [SerializeField, Min(0)] private int currentExperience;
@@ -18,7 +15,6 @@ public sealed class ExpDropManager : MonoBehaviour
     private int experienceToCurrentLevel;
     private int needXPForNextLevel;
 
-    public float MagnetRange => magnetRange;
     public int CurrentExperience => currentExperience;
     public int CurrentLevel => currentLevel;
     public int CurrentLevelExperience => currentExperience - experienceToCurrentLevel;
@@ -135,7 +131,6 @@ public sealed class ExpDropManager : MonoBehaviour
 #if UNITY_EDITOR
     private void OnValidate()
     {
-        magnetRange = Mathf.Max(0f, magnetRange);
         currentExperience = Mathf.Max(0, currentExperience);
     }
 #endif

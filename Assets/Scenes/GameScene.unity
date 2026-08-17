@@ -473,6 +473,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LevelUpPanelController
   experienceManager: {fileID: 1264037148}
   playerAttackStats: {fileID: 1264037149}
+  playerDamageService: {fileID: 1264037150}
+  playerMagnet: {fileID: 1264037151}
+  autoShooter: {fileID: 1264037146}
+  fireRingSystem: {fileID: 1264037152}
+  explosionController: {fileID: 1264037153}
+  fireDotController: {fileID: 1264037154}
   levelUpCardCsv: {fileID: 4900000, guid: 5540841765774cd090a805628f64c2c9, type: 3}
   levelUpPanel: {fileID: 312222607}
   cards:
@@ -643,7 +649,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: Button
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 4897e69d698fd214f81c95c2f81760d5, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -710,7 +716,7 @@ MonoBehaviour:
   m_margin: {x: 1.310829, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &335386471
@@ -1470,7 +1476,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: Button
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 4897e69d698fd214f81c95c2f81760d5, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -1537,7 +1543,7 @@ MonoBehaviour:
   m_margin: {x: 1.310829, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &574261317
@@ -1777,6 +1783,11 @@ GameObject:
   - component: {fileID: 1264037147}
   - component: {fileID: 1264037148}
   - component: {fileID: 1264037149}
+  - component: {fileID: 1264037150}
+  - component: {fileID: 1264037151}
+  - component: {fileID: 1264037152}
+  - component: {fileID: 1264037153}
+  - component: {fileID: 1264037154}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -1982,6 +1993,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AutoShooter
   fireInterval: 0.5
   minTurnCooldown: 0.15
+  projectileCount: 1
   projectilePrefab: {fileID: 1581742085923325342, guid: 1c2f940334347c84e9249ec0f75135fe, type: 3}
   spawnPoint: {fileID: 0}
   baseRotationReference: {fileID: 0}
@@ -2013,7 +2025,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c90714cc69a426ba58a81b39a96368f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ExpDropManager
-  magnetRange: 5
   levelXpCsv: {fileID: 4900000, guid: 2bd51b2bf85b41379594f78271608b00, type: 3}
   currentExperience: 0
 --- !u!114 &1264037149
@@ -2030,6 +2041,83 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAttackStats
   baseAttackPower: 10
   attackPercent: 100
+--- !u!114 &1264037150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1264037139}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d21f0599f22e4562af4c876c4db5fb76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerDamageService
+  healPercent: 0
+--- !u!114 &1264037151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1264037139}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43aa5b9c75544a15817f3ce43212cedc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerMagnet
+  baseCollectRadius: 5
+  radiusPercent: 100
+--- !u!114 &1264037152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1264037139}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8482aa3735ee4fdd843f1e3acbbb2079, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FireRingSystem
+  fireRingPrefab: {fileID: 612297412604944780, guid: 151d38aad9b21474ab9bdcc70ac04c2e, type: 3}
+  fireBallCount: 0
+--- !u!114 &1264037153
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1264037139}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b230c7978264fb2b406618045dde69d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ExplosionController
+  explosionRadius: 3
+  damageLayers:
+    serializedVersion: 2
+    m_Bits: 128
+  attackPowerPercent: 30
+  explosionEffectPrefab: {fileID: 8590593441913300332, guid: 527c83e6b477b7d4d85cad30a16fa647, type: 3}
+  effectSize: 1
+  effectDuration: 0.5
+  triggerChancePercent: 0
+--- !u!114 &1264037154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1264037139}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 641e0971064a4573a4fb05a8ef9a871a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DOT_FIREController
+  debuffDuration: 3
+  damageInterval: 1
+  attackPowerPercent: 0
 --- !u!1 &1514354900
 GameObject:
   m_ObjectHideFlags: 0
@@ -2362,7 +2450,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: Button
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 4897e69d698fd214f81c95c2f81760d5, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -2429,7 +2517,7 @@ MonoBehaviour:
   m_margin: {x: 1.310829, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &1760880122
@@ -2490,6 +2578,58 @@ MonoBehaviour:
   gameplayCamera: {fileID: 103002571}
   outsideViewPadding: 2
   spawnRingWidth: 2
+--- !u!1 &2000000011
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2000000012}
+  - component: {fileID: 2000000013}
+  m_Layer: 0
+  m_Name: TreasureBoxManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2000000012
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2000000011}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2000000013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2000000011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f248d60d312a4bd6b88bf2ed9e52cc1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TreasureBoxManager
+  treasureBoxPrefab: {fileID: 480453841066699000, guid: dbf7fbcda1ead14439ffbe58fdb584f7, type: 3}
+  spawnCooldownSeconds: 30
+  firstSpawnDelaySeconds: 10
+  maxActiveTreasureBoxes: 3
+  player: {fileID: 1264037142}
+  gameplayCamera: {fileID: 103002571}
+  outsideViewPadding: 2
+  randomDistanceRange: 2
 --- !u!1 &2094372148
 GameObject:
   m_ObjectHideFlags: 0
@@ -2769,5 +2909,6 @@ SceneRoots:
   - {fileID: 1264037142}
   - {fileID: 798477558}
   - {fileID: 2000000002}
+  - {fileID: 2000000012}
   - {fileID: 232693925}
   - {fileID: 82454098}

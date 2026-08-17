@@ -4,7 +4,13 @@ using System.Text;
 
 public enum LevelUpCardEffect
 {
-    ATKUP
+    ATKUP,
+    HEAL,
+    MAGNET,
+    PLUS1,
+    FIRERING,
+    EXPLOSION,
+    INCHANTFRIE
 }
 
 public sealed class LevelUpCardData

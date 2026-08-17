@@ -171,7 +171,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MonsterController
   moveSpeed: 2
-  maxHP: 3
+  maxHP: 10
   attackDamage: 10
   expOrbDrops:
   - orbPrefab: {fileID: 310000000000000001, guid: 4b1aece6e3f2db146ad1c613625c975f, type: 3}

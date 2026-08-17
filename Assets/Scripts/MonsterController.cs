@@ -4,7 +4,7 @@ using UnityEngine.Serialization;
 
 [DisallowMultipleComponent]
 [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
-public sealed class MonsterController : MonoBehaviour, IDamageable
+public sealed class MonsterController : MonoBehaviour, IPlayerAttackTarget
 {
     [Serializable]
     private sealed class ExpOrbDrop
@@ -35,6 +35,10 @@ public sealed class MonsterController : MonoBehaviour, IDamageable
     private Action<MonsterController> destroyedCallback;
     private float health;
     private bool isDead;
+
+    public bool IsDead => isDead;
+    public int AttackTargetId => GetInstanceID();
+    public UnityEngine.Object TargetObject => this;
 
     private void Awake()
     {
@@ -84,18 +88,23 @@ public sealed class MonsterController : MonoBehaviour, IDamageable
         spriteRenderer.flipX = body.position.x > target.position.x;
     }
 
-    public void TakeDamage(float damage)
+    public DamageResult ApplyDamage(float damage)
     {
+        Vector3 hitPosition = transform.position;
         if (LevelUpPanelController.IsGamePaused || isDead || damage <= 0f)
-            return;
+            return new DamageResult(0f, false, hitPosition);
 
-        health -= damage;
-        if (health <= 0f)
+        float appliedDamage = Mathf.Min(health, damage);
+        health -= appliedDamage;
+        bool killed = health <= 0f;
+        if (killed)
         {
             isDead = true;
             TryDropExperienceOrb();
             Destroy(gameObject);
         }
+
+        return new DamageResult(appliedDamage, killed, hitPosition);
     }
 
     private void TryDropExperienceOrb()

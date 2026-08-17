@@ -1,4 +1,26 @@
-ID,Rate,Requirde,Icon,Desc,Effect,Value
-1,1,0,Skill_ATKUP,���ݷ��� 150%�� �˴ϴ�.,ATKUP,150
-2,1,1,Skill_ATKUP,���ݷ��� 200%�� �˴ϴ�.,ATKUP,200
-3,1,2,Skill_ATKUP,���ݷ��� 250%�� �˴ϴ�.,ATKUP,250
+﻿ID,Rate,Requirde,Icon,Desc,Effect,Value
+1,1,0,Skill_ATKUP,공격력이 150%가 됩니다.,ATKUP,150
+2,1,1,Skill_ATKUP,공격력이 200%가 됩니다.,ATKUP,200
+3,1,2,Skill_ATKUP,공격력이 250%가 됩니다.,ATKUP,250
+4,1,0,Skill_Heal,가한 실제 대미지의 10%만큼 체력을 회복합니다.,HEAL,10
+5,1,4,Skill_Heal,가한 실제 대미지의 20%만큼 체력을 회복합니다.,HEAL,20
+6,1,5,Skill_Heal,가한 실제 대미지의 30%만큼 체력을 회복합니다.,HEAL,30
+7,1,6,Skill_Heal,가한 실제 대미지의 40%만큼 체력을 회복합니다.,HEAL,40
+8,1,0,Skill_Magnet,아이템 흡수 반경이 기본 반경의 200%가 됩니다.,MAGNET,200
+9,1,8,Skill_Magnet,아이템 흡수 반경이 기본 반경의 300%가 됩니다.,MAGNET,300
+10,1,9,Skill_Magnet,아이템 흡수 반경이 기본 반경의 400%가 됩니다.,MAGNET,400
+11,1,0,Skill_Plus1,기본 투사체가 정면과 반대 방향으로 2개 발사됩니다.,PLUS1,2
+12,1,11,Skill_Plus1,기본 투사체가 정면·반대·위 방향으로 3개 발사됩니다.,PLUS1,3
+13,1,12,Skill_Plus1,기본 투사체가 정면·반대·위·아래 방향으로 4개 발사됩니다.,PLUS1,4
+14,1,0,Skill_Fire,플레이어 주변을 회전하는 불덩이가 1개 생성됩니다.,FIRERING,1
+15,1,14,Skill_Fire,플레이어 주변을 같은 간격으로 회전하는 불덩이가 2개가 됩니다.,FIRERING,2
+16,1,15,Skill_Fire,플레이어 주변을 같은 간격으로 회전하는 불덩이가 3개가 됩니다.,FIRERING,3
+17,1,16,Skill_Fire,플레이어 주변을 같은 간격으로 회전하는 불덩이가 4개가 됩니다.,FIRERING,4
+18,1,0,Skill_Explosion,적 처치 시 10% 확률로 원형 폭발이 발생합니다.,EXPLOSION,10
+19,1,18,Skill_Explosion,적 처치 시 25% 확률로 원형 폭발이 발생합니다.,EXPLOSION,25
+20,1,19,Skill_Explosion,적 처치 시 50% 확률로 원형 폭발이 발생합니다.,EXPLOSION,50
+21,1,20,Skill_Explosion,적 처치 시 반드시 원형 폭발이 발생합니다.,EXPLOSION,100
+22,1,0,Skill_InchantFire,공격 적중 시 공격력의 5% 화염 지속 피해를 부여합니다.,INCHANTFRIE,50
+23,1,22,Skill_InchantFire,화염 지속 피해가 공격력의 10%로 변경됩니다.,INCHANTFRIE,10
+24,1,23,Skill_InchantFire,화염 지속 피해가 공격력의 15%로 변경됩니다.,INCHANTFRIE,15
+25,1,24,Skill_InchantFire,화염 지속 피해가 공격력의 20%로 변경됩니다.,INCHANTFRIE,20
