@@ -180,4 +180,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TreasureBoxController
   maxHealth: 10
-  itemDrops: []
+  itemDrops:
+  - itemPrefab: {fileID: 5536285467533507644, guid: 56ffe6bab86c5ab4a9b23f8c3f477c15, type: 3}
+    dropChance: 33.34
+  - itemPrefab: {fileID: 5536285467533507644, guid: 925844e2c5881d34d94924d8f1b0165f, type: 3}
+    dropChance: 33.33
+  - itemPrefab: {fileID: 5536285467533507644, guid: 1b8d9ffd66e10a643a44712866e9b2a2, type: 3}
+    dropChance: 33.33

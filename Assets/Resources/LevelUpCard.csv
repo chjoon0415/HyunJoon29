@@ -25,3 +25,9 @@
 24,1,23,Skill_InchantFire,화염 지속 피해가 공격력의 15%로 변경됩니다.,INCHANTFRIE,15
 25,1,24,Skill_InchantFire,화염 지속 피해가 공격력의 20%로 변경됩니다.,INCHANTFRIE,20
 26,1,0,Skill_KillWave,몬스터 30마리를 처치할 때마다 플레이어 중심에서 처치 파동이 발생합니다.,KillWave,30
+27,1,26,Skill_KillWave,처치 파동 발동 조건이 몬스터 20마리 처치로 변경됩니다.,KillWave,20
+28,1,27,Skill_KillWave,처치 파동 발동 조건이 몬스터 10마리 처치로 변경됩니다.,KillWave,10
+29,1,0,Skill_Cluster,적 처치 시 10% 확률로 처치 위치에서 4방향 마력 투사체를 발사합니다.,CLUSTER,10
+30,1,29,Skill_Cluster,4방향 마력 투사체 발동 확률이 25%로 변경됩니다.,CLUSTER,25
+31,1,30,Skill_Cluster,4방향 마력 투사체 발동 확률이 50%로 변경됩니다.,CLUSTER,50
+32,1,31,Skill_Cluster,적 처치 시 반드시 4방향 마력 투사체를 발사합니다.,CLUSTER,100

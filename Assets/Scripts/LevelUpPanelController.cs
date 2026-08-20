@@ -18,6 +18,7 @@ public sealed class LevelUpPanelController : MonoBehaviour
     [SerializeField] private ExplosionController explosionController;
     [SerializeField] private DOT_FIREController fireDotController;
     [SerializeField] private KillWaveSystem killWaveSystem;
+    [SerializeField] private CLUSTERController clusterController;
     [SerializeField] private TextAsset levelUpCardCsv;
     [SerializeField] private GameObject levelUpPanel;
     [SerializeField] private Button[] cards = new Button[3];
@@ -64,7 +65,7 @@ public sealed class LevelUpPanelController : MonoBehaviour
     {
         if (experienceManager == null || playerAttackStats == null || playerDamageService == null ||
             playerMagnet == null || autoShooter == null || fireRingSystem == null || explosionController == null ||
-            fireDotController == null || killWaveSystem == null ||
+            fireDotController == null || killWaveSystem == null || clusterController == null ||
             levelUpPanel == null || cardTable == null ||
             cards == null || cards.Length < 3 || cards[0] == null || cards[1] == null || cards[2] == null ||
             cardImages == null || cardDescriptions == null ||
@@ -240,6 +241,9 @@ public sealed class LevelUpPanelController : MonoBehaviour
             case LevelUpCardEffect.KillWave:
                 killWaveSystem.SetKillsPerWave(selectedCard.Value);
                 break;
+            case LevelUpCardEffect.CLUSTER:
+                clusterController.SetTriggerChance(selectedCard.Value);
+                break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(selectedCard.Effect), selectedCard.Effect, null);
         }
@@ -286,6 +290,8 @@ public sealed class LevelUpPanelController : MonoBehaviour
             fireDotController = FindFirstObjectByType<DOT_FIREController>();
         if (killWaveSystem == null)
             killWaveSystem = FindFirstObjectByType<KillWaveSystem>();
+        if (clusterController == null)
+            clusterController = FindFirstObjectByType<CLUSTERController>();
 
         Transform[] descendants = GetComponentsInChildren<Transform>(true);
         foreach (Transform descendant in descendants)

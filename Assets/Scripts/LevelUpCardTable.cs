@@ -11,7 +11,8 @@ public enum LevelUpCardEffect
     FIRERING,
     EXPLOSION,
     INCHANTFRIE,
-    KillWave
+    KillWave,
+    CLUSTER
 }
 
 public sealed class LevelUpCardData
@@ -55,16 +56,36 @@ public sealed class LevelUpCardTable
     public List<LevelUpCardData> GetEligibleCards(ISet<int> selectedCardIds)
     {
         List<LevelUpCardData> eligibleCards = new List<LevelUpCardData>();
+        bool explosionSelected = HasSelectedEffect(selectedCardIds, LevelUpCardEffect.EXPLOSION);
+        bool clusterSelected = HasSelectedEffect(selectedCardIds, LevelUpCardEffect.CLUSTER);
         foreach (LevelUpCardData card in cards)
         {
             if (card.Rate <= 0 || selectedCardIds.Contains(card.Id))
                 continue;
+
+            // EXPLOSION and CLUSTER are mutually exclusive skill lines.
+            if ((explosionSelected && card.Effect == LevelUpCardEffect.CLUSTER) ||
+                (clusterSelected && card.Effect == LevelUpCardEffect.EXPLOSION))
+            {
+                continue;
+            }
 
             if (card.RequiredCardId == 0 || selectedCardIds.Contains(card.RequiredCardId))
                 eligibleCards.Add(card);
         }
 
         return eligibleCards;
+    }
+
+    private bool HasSelectedEffect(ISet<int> selectedCardIds, LevelUpCardEffect effect)
+    {
+        foreach (LevelUpCardData card in cards)
+        {
+            if (card.Effect == effect && selectedCardIds.Contains(card.Id))
+                return true;
+        }
+
+        return false;
     }
 
     public static LevelUpCardTable Parse(string csv)

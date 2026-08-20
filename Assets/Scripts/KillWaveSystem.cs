@@ -47,8 +47,12 @@ public sealed class KillWaveSystem : MonoBehaviour
 
     public void SetKillsPerWave(int value)
     {
+        // Re-selecting KillWave replaces only the required kill count. Previously
+        // accumulated kills are retained and can trigger waves immediately when
+        // the new requirement is lower (for example, 27/30 becomes 7/20 after
+        // one immediate wave).
         killsPerWave = Mathf.Max(0, value);
-        killCount = 0;
+        TriggerPendingWaves();
     }
 
     private void HandleDamageApplied(PlayerDamageEvent damageEvent)
@@ -57,6 +61,14 @@ public sealed class KillWaveSystem : MonoBehaviour
             return;
 
         killCount++;
+        TriggerPendingWaves();
+    }
+
+    private void TriggerPendingWaves()
+    {
+        if (killsPerWave <= 0)
+            return;
+
         while (killCount >= killsPerWave)
         {
             killCount -= killsPerWave;

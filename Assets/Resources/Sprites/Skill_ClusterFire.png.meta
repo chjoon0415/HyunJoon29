@@ -1,10 +1,16 @@
 fileFormatVersion: 2
-guid: a7dad40bb5424f449a81c0137981bd87
+guid: 7a86aa80f50e2ce4e9da3d4562ade63b
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -9223370099257502331
-    second: "\uBCF4\uBB3C \uC0C1\uC790 \uBC0F \uB4DC\uB78D\uD15C_5_0"
+      213: 1106516469377535187
+    second: Skill_ClusterFire_0
+  - first:
+      213: 7520810817775206647
+    second: Skill_ClusterFire_1
+  - first:
+      213: 1890579086666053173
+    second: Skill_ClusterFire_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +52,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -100,13 +106,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: "\uBCF4\uBB3C \uC0C1\uC790 \uBC0F \uB4DC\uB78D\uD15C_5_0"
+      name: Skill_ClusterFire_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 1415
-        height: 1111
+        x: 112
+        y: 104
+        width: 1063
+        height: 1087
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +121,52 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 5851cc123c1000080800000000000000
-      internalID: -9223370099257502331
+      spriteID: 3dc0e57cdd22b5f00800000000000000
+      internalID: 1106516469377535187
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skill_ClusterFire_1
+      rect:
+        serializedVersion: 2
+        x: 889
+        y: 1118
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7f0086087994f5860800000000000000
+      internalID: 7520810817775206647
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skill_ClusterFire_2
+      rect:
+        serializedVersion: 2
+        x: 1073
+        y: 838
+        width: 8
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5363380a9afac3a10800000000000000
+      internalID: 1890579086666053173
       vertices: []
       indices: 
       edges: []
@@ -125,7 +175,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -135,7 +185,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      "\uBCF4\uBB3C \uC0C1\uC790 \uBC0F \uB4DC\uB78D\uD15C_5_0": -9223370099257502331
+      Skill_ClusterFire_0: 1106516469377535187
+      Skill_ClusterFire_1: 7520810817775206647
+      Skill_ClusterFire_2: 1890579086666053173
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -9,10 +9,17 @@ public sealed class PlayerMagnet : MonoBehaviour
     [SerializeField, Min(0f)] private float baseCollectRadius = 5f;
     [SerializeField, Min(0)] private int radiusPercent = 100;
 
+    private float superMagnetRemainingTime;
+    private float superMagnetAcceleration;
+    private float superMagnetMaxSpeed;
+
     public Transform Target => transform;
     public float BaseCollectRadius => baseCollectRadius;
     public int RadiusPercent => radiusPercent;
     public float CurrentCollectRadius => baseCollectRadius * radiusPercent / 100f;
+    public bool IsSuperMagnetActive => superMagnetRemainingTime > 0f;
+    public float SuperMagnetAcceleration => superMagnetAcceleration;
+    public float SuperMagnetMaxSpeed => superMagnetMaxSpeed;
 
     private void Awake()
     {
@@ -26,9 +33,27 @@ public sealed class PlayerMagnet : MonoBehaviour
         Instance = this;
     }
 
+    private void Update()
+    {
+        if (LevelUpPanelController.IsGamePaused || !IsSuperMagnetActive)
+            return;
+
+        superMagnetRemainingTime = Mathf.Max(
+            0f,
+            superMagnetRemainingTime - Time.deltaTime);
+    }
+
     public void SetRadiusPercent(int value)
     {
         radiusPercent = Mathf.Max(0, value);
+    }
+
+    public void ActivateSuperMagnet(float duration, float acceleration, float maxSpeed)
+    {
+        superMagnetRemainingTime = Mathf.Max(0.01f, duration);
+        superMagnetAcceleration = Mathf.Max(0.01f, acceleration);
+        superMagnetMaxSpeed = Mathf.Max(0.01f, maxSpeed);
+        MagnetCollectible.PullAllActiveCollectibles();
     }
 
     private void OnDestroy()
