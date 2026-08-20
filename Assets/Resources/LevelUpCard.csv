@@ -24,3 +24,4 @@
 23,1,22,Skill_InchantFire,화염 지속 피해가 공격력의 10%로 변경됩니다.,INCHANTFRIE,10
 24,1,23,Skill_InchantFire,화염 지속 피해가 공격력의 15%로 변경됩니다.,INCHANTFRIE,15
 25,1,24,Skill_InchantFire,화염 지속 피해가 공격력의 20%로 변경됩니다.,INCHANTFRIE,20
+26,1,0,Skill_KillWave,몬스터 30마리를 처치할 때마다 플레이어 중심에서 처치 파동이 발생합니다.,KillWave,30

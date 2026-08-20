@@ -10,7 +10,8 @@ public enum LevelUpCardEffect
     PLUS1,
     FIRERING,
     EXPLOSION,
-    INCHANTFRIE
+    INCHANTFRIE,
+    KillWave
 }
 
 public sealed class LevelUpCardData

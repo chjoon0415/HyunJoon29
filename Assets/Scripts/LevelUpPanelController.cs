@@ -17,6 +17,7 @@ public sealed class LevelUpPanelController : MonoBehaviour
     [SerializeField] private FireRingSystem fireRingSystem;
     [SerializeField] private ExplosionController explosionController;
     [SerializeField] private DOT_FIREController fireDotController;
+    [SerializeField] private KillWaveSystem killWaveSystem;
     [SerializeField] private TextAsset levelUpCardCsv;
     [SerializeField] private GameObject levelUpPanel;
     [SerializeField] private Button[] cards = new Button[3];
@@ -63,7 +64,7 @@ public sealed class LevelUpPanelController : MonoBehaviour
     {
         if (experienceManager == null || playerAttackStats == null || playerDamageService == null ||
             playerMagnet == null || autoShooter == null || fireRingSystem == null || explosionController == null ||
-            fireDotController == null ||
+            fireDotController == null || killWaveSystem == null ||
             levelUpPanel == null || cardTable == null ||
             cards == null || cards.Length < 3 || cards[0] == null || cards[1] == null || cards[2] == null ||
             cardImages == null || cardDescriptions == null ||
@@ -236,6 +237,9 @@ public sealed class LevelUpPanelController : MonoBehaviour
             case LevelUpCardEffect.INCHANTFRIE:
                 fireDotController.SetAttackPowerPercent(selectedCard.Value);
                 break;
+            case LevelUpCardEffect.KillWave:
+                killWaveSystem.SetKillsPerWave(selectedCard.Value);
+                break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(selectedCard.Effect), selectedCard.Effect, null);
         }
@@ -280,6 +284,8 @@ public sealed class LevelUpPanelController : MonoBehaviour
             explosionController = FindFirstObjectByType<ExplosionController>();
         if (fireDotController == null)
             fireDotController = FindFirstObjectByType<DOT_FIREController>();
+        if (killWaveSystem == null)
+            killWaveSystem = FindFirstObjectByType<KillWaveSystem>();
 
         Transform[] descendants = GetComponentsInChildren<Transform>(true);
         foreach (Transform descendant in descendants)

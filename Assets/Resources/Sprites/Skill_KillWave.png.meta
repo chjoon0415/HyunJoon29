@@ -1,0 +1,715 @@
+fileFormatVersion: 2
+guid: f0ac9b50330a2af44935069700ab87dc
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 281582753395467377
+    second: Skill_KillWave_0
+  - first:
+      213: -3189455881761001441
+    second: Skill_KillWave_1
+  - first:
+      213: -256372788764248013
+    second: Skill_KillWave_2
+  - first:
+      213: 1911840418122708395
+    second: Skill_KillWave_3
+  - first:
+      213: -4644402720362868393
+    second: Skill_KillWave_4
+  - first:
+      213: 5568267543680857436
+    second: Skill_KillWave_5
+  - first:
+      213: 6441528617167464952
+    second: Skill_KillWave_6
+  - first:
+      213: -7464905466423230838
+    second: Skill_KillWave_7
+  - first:
+      213: 2668177009310242517
+    second: Skill_KillWave_8
+  - first:
+      213: 4361595322572595797
+    second: Skill_KillWave_9
+  - first:
+      213: -9204297125991224854
+    second: Skill_KillWave_10
+  - first:
+      213: -8854481668665368329
+    second: Skill_KillWave_11
+  - first:
+      213: -521052640744749355
+    second: Skill_KillWave_12
+  - first:
+      213: -2100307160171274376
+    second: Skill_KillWave_13
+  - first:
+      213: 5152438334999397794
+    second: Skill_KillWave_14
+  - first:
+      213: 3404445509070286921
+    second: Skill_KillWave_15
+  - first:
+      213: -2651213546786590560
+    second: Skill_KillWave_16
+  - first:
+      213: -4152655901764936670
+    second: Skill_KillWave_17
+  - first:
+      213: -7042837437990616219
+    second: Skill_KillWave_18
+  - first:
+      213: -6028878712544685398
+    second: Skill_KillWave_19
+  - first:
+      213: -6618618431679792439
+    second: Skill_KillWave_20
+  - first:
+      213: -2297138221995498618
+    second: Skill_KillWave_21
+  - first:
+      213: 2175417052506541630
+    second: Skill_KillWave_22
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Skill_KillWave_0
+      rect:
+        serializedVersion: 2
+        x: 198
+        y: 0
+        width: 1283
+        height: 1004
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1746307b50268e300800000000000000
+      internalID: 281582753395467377
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skill_KillWave_1
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 945
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f10fad426c6ccb3d0800000000000000
+      internalID: -3189455881761001441
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skill_KillWave_2
+      rect:
+        serializedVersion: 2
+        x: 354
+        y: 753
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 33871a39e4e217cf0800000000000000
+      internalID: -256372788764248013
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skill_KillWave_3
+      rect:
+        serializedVersion: 2
+        x: 1086
+        y: 669
+        width: 109
+        height: 157
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ba5307d1bb8388a10800000000000000
+      internalID: 1911840418122708395
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skill_KillWave_4
+      rect:
+        serializedVersion: 2
+        x: 1200
+        y: 757
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 751d9ea3554cb8fb0800000000000000
+      internalID: -4644402720362868393
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skill_KillWave_5
+      rect:
+        serializedVersion: 2
+        x: 1190
+        y: 654
+        width: 21
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c553f6b34d5764d40800000000000000
+      internalID: 5568267543680857436
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skill_KillWave_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 449
+        width: 203
+        height: 161
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8f9a7cc0628e46950800000000000000
+      internalID: 6441528617167464952
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skill_KillWave_7
+      rect:
+        serializedVersion: 2
+        x: 1198
+        y: 516
+        width: 9
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a8eb8ff6704576890800000000000000
+      internalID: -7464905466423230838
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skill_KillWave_8
+      rect:
+        serializedVersion: 2
+        x: 1248
+        y: 527
+        width: 7
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5d61dc57ad4470520800000000000000
+      internalID: 2668177009310242517
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skill_KillWave_9
+      rect:
+        serializedVersion: 2
+        x: 1262
+        y: 453
+        width: 9
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 552e1ff46df778c30800000000000000
+      internalID: 4361595322572595797
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skill_KillWave_10
+      rect:
+        serializedVersion: 2
+        x: 1256
+        y: 439
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ae9e426c784c34080800000000000000
+      internalID: -9204297125991224854
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skill_KillWave_11
+      rect:
+        serializedVersion: 2
+        x: 270
+        y: 390
+        width: 11
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7f02efcd5df8e1580800000000000000
+      internalID: -8854481668665368329
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skill_KillWave_12
+      rect:
+        serializedVersion: 2
+        x: 1206
+        y: 412
+        width: 11
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5d641274269d4c8f0800000000000000
+      internalID: -521052640744749355
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skill_KillWave_13
+      rect:
+        serializedVersion: 2
+        x: 1239
+        y: 388
+        width: 24
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 87f18c604c53ad2e0800000000000000
+      internalID: -2100307160171274376
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skill_KillWave_14
+      rect:
+        serializedVersion: 2
+        x: 354
+        y: 339
+        width: 7
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2a58ebced53218740800000000000000
+      internalID: 5152438334999397794
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skill_KillWave_15
+      rect:
+        serializedVersion: 2
+        x: 1160
+        y: 291
+        width: 25
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 940fe4927250f3f20800000000000000
+      internalID: 3404445509070286921
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skill_KillWave_16
+      rect:
+        serializedVersion: 2
+        x: 1182
+        y: 307
+        width: 7
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0a0f410735ff43bd0800000000000000
+      internalID: -2651213546786590560
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skill_KillWave_17
+      rect:
+        serializedVersion: 2
+        x: 1266
+        y: 287
+        width: 9
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 22c1fd4857dce56c0800000000000000
+      internalID: -4152655901764936670
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skill_KillWave_18
+      rect:
+        serializedVersion: 2
+        x: 1187
+        y: 228
+        width: 8
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5634fb92aa0d24e90800000000000000
+      internalID: -7042837437990616219
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skill_KillWave_19
+      rect:
+        serializedVersion: 2
+        x: 1200
+        y: 225
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa21cd8d0ce155ca0800000000000000
+      internalID: -6028878712544685398
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skill_KillWave_20
+      rect:
+        serializedVersion: 2
+        x: 1000
+        y: 121
+        width: 11
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9ca7fd37a91f524a0800000000000000
+      internalID: -6618618431679792439
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skill_KillWave_21
+      rect:
+        serializedVersion: 2
+        x: 1018
+        y: 103
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6836cf535fcee10e0800000000000000
+      internalID: -2297138221995498618
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skill_KillWave_22
+      rect:
+        serializedVersion: 2
+        x: 1032
+        y: 97
+        width: 9
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e3ecafc8842a03e10800000000000000
+      internalID: 2175417052506541630
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Skill_KillWave_0: 281582753395467377
+      Skill_KillWave_1: -3189455881761001441
+      Skill_KillWave_10: -9204297125991224854
+      Skill_KillWave_11: -8854481668665368329
+      Skill_KillWave_12: -521052640744749355
+      Skill_KillWave_13: -2100307160171274376
+      Skill_KillWave_14: 5152438334999397794
+      Skill_KillWave_15: 3404445509070286921
+      Skill_KillWave_16: -2651213546786590560
+      Skill_KillWave_17: -4152655901764936670
+      Skill_KillWave_18: -7042837437990616219
+      Skill_KillWave_19: -6028878712544685398
+      Skill_KillWave_2: -256372788764248013
+      Skill_KillWave_20: -6618618431679792439
+      Skill_KillWave_21: -2297138221995498618
+      Skill_KillWave_22: 2175417052506541630
+      Skill_KillWave_3: 1911840418122708395
+      Skill_KillWave_4: -4644402720362868393
+      Skill_KillWave_5: 5568267543680857436
+      Skill_KillWave_6: 6441528617167464952
+      Skill_KillWave_7: -7464905466423230838
+      Skill_KillWave_8: 2668177009310242517
+      Skill_KillWave_9: 4361595322572595797
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -479,6 +479,7 @@ MonoBehaviour:
   fireRingSystem: {fileID: 1264037152}
   explosionController: {fileID: 1264037153}
   fireDotController: {fileID: 1264037154}
+  killWaveSystem: {fileID: 1264037155}
   levelUpCardCsv: {fileID: 4900000, guid: 5540841765774cd090a805628f64c2c9, type: 3}
   levelUpPanel: {fileID: 312222607}
   cards:
@@ -1788,6 +1789,7 @@ GameObject:
   - component: {fileID: 1264037152}
   - component: {fileID: 1264037153}
   - component: {fileID: 1264037154}
+  - component: {fileID: 1264037155}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -2118,6 +2120,21 @@ MonoBehaviour:
   debuffDuration: 3
   damageInterval: 1
   attackPowerPercent: 0
+--- !u!114 &1264037155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1264037139}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f44c65c5be8c4589a2adcc5b8df071af, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::KillWaveSystem
+  killWavePrefab: {fileID: 6387142583432640291, guid: 20dcdde4b278b0c42a56ebadd745c158, type: 3}
+  fireKillWavePrefab: {fileID: 7553135446735468120, guid: 2fc69bd9db53a964287e56736d077ee3, type: 3}
+  killsPerWave: 0
 --- !u!1 &1514354900
 GameObject:
   m_ObjectHideFlags: 0
