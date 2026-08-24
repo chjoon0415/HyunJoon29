@@ -35,6 +35,9 @@ public sealed class MonsterController : MonoBehaviour, IPlayerAttackTarget
     private Action<MonsterController> destroyedCallback;
     private float health;
     private bool isDead;
+    private SpawnShape spawnShape;
+    private float initialTargetDistance;
+    private float tornadoDirection = 1f;
 
     public bool IsDead => isDead;
     public int AttackTargetId => GetInstanceID();
@@ -53,10 +56,33 @@ public sealed class MonsterController : MonoBehaviour, IPlayerAttackTarget
 
     public void Initialize(Transform playerTarget, Action<MonsterController> onDestroyed)
     {
+        Initialize(playerTarget, onDestroyed, 0f, -1f);
+    }
+
+    /// <summary>
+    /// StageMonster 값이 유효하면 이 개체에만 적용합니다. 0 HP / -1 공격력은 프리팹 값을 유지합니다.
+    /// </summary>
+    public void Initialize(
+        Transform playerTarget,
+        Action<MonsterController> onDestroyed,
+        float stageMaxHP,
+        float stageAttackDamage,
+        SpawnShape movementShape = SpawnShape.CIRCLE,
+        float tornadoRotationDirection = 1f)
+    {
         target = playerTarget;
         destroyedCallback = onDestroyed;
+        if (stageMaxHP > 0f)
+            maxHP = stageMaxHP;
+        if (stageAttackDamage >= 0f)
+            attackDamage = stageAttackDamage;
         health = maxHP;
         isDead = false;
+        spawnShape = movementShape;
+        tornadoDirection = tornadoRotationDirection < 0f ? -1f : 1f;
+        initialTargetDistance = target != null
+            ? Vector2.Distance(body.position, target.position)
+            : 0f;
         UpdateSpriteDirection();
     }
 
@@ -74,9 +100,28 @@ public sealed class MonsterController : MonoBehaviour, IPlayerAttackTarget
             return;
         }
 
-        Vector2 direction = ((Vector2)target.position - body.position).normalized;
+        Vector2 toTarget = (Vector2)target.position - body.position;
+        Vector2 direction = GetApproachDirection(toTarget);
         body.linearVelocity = direction * moveSpeed;
         UpdateSpriteDirection();
+    }
+
+    private Vector2 GetApproachDirection(Vector2 toTarget)
+    {
+        if (toTarget.sqrMagnitude <= 0.0001f)
+            return Vector2.zero;
+
+        Vector2 inward = toTarget.normalized;
+        if (spawnShape != SpawnShape.TORNADO)
+            return inward;
+
+        // 멀리서는 크게 회전하고, 가까워질수록 회전을 풀어 반드시 플레이어에게 닿습니다.
+        float distanceRatio = initialTargetDistance > 0.01f
+            ? Mathf.Clamp01(toTarget.magnitude / initialTargetDistance)
+            : 0f;
+        float tangentWeight = 0.8f * Mathf.SmoothStep(0f, 1f, distanceRatio);
+        Vector2 tangent = new Vector2(-inward.y, inward.x) * tornadoDirection;
+        return (inward + tangent * tangentWeight).normalized;
     }
 
     private void UpdateSpriteDirection()

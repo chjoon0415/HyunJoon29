@@ -4,6 +4,15 @@ using System.Globalization;
 using System.Text;
 using UnityEngine;
 
+public enum SpawnShape
+{
+    CIRCLE,
+    LINE,
+    CROWD,
+    SQUARE,
+    TORNADO
+}
+
 [Serializable]
 public sealed class StageMonsterRule
 {
@@ -14,8 +23,12 @@ public sealed class StageMonsterRule
     public int WaveSizeStart { get; private set; }
     public int WaveSizeGrowth { get; private set; }
     public int WaveSizeMax { get; private set; }
+    public int WaveCount { get; private set; }
     public int TotalBudget { get; private set; }
     public int MaxAliveCap { get; private set; }
+    public float MonsterHP { get; private set; }
+    public float AttackDamage { get; private set; }
+    public SpawnShape SpawnShape { get; private set; }
 
     public static List<StageMonsterRule> ParseForStage(string csv, int stageId)
     {
@@ -54,8 +67,12 @@ public sealed class StageMonsterRule
                     WaveSizeStart = ParseInt(Get(row, columns, "WaveSizeStart"), "WaveSizeStart"),
                     WaveSizeGrowth = ParseInt(Get(row, columns, "WaveSizeGrowth"), "WaveSizeGrowth"),
                     WaveSizeMax = ParseInt(Get(row, columns, "WaveSizeMax"), "WaveSizeMax"),
+                    WaveCount = GetOptionalInt(row, columns, "WaveCount", int.MaxValue),
                     TotalBudget = ParseInt(Get(row, columns, "TotalBudget"), "TotalBudget"),
-                    MaxAliveCap = ParseInt(Get(row, columns, "MaxAliveCap"), "MaxAliveCap")
+                    MaxAliveCap = ParseInt(Get(row, columns, "MaxAliveCap"), "MaxAliveCap"),
+                    MonsterHP = GetOptionalFloat(row, columns, "MonsterHP", 0f),
+                    AttackDamage = GetOptionalFloat(row, columns, "AttackDamage", -1f),
+                    SpawnShape = ParseSpawnShape(Get(row, columns, "SpawnShape"))
                 };
 
                 rule.Validate(rowIndex + 1);
@@ -78,8 +95,12 @@ public sealed class StageMonsterRule
             throw new FormatException("SpwanStartSec cannot be negative.");
         if (WaveIntervalSec <= 0f)
             throw new FormatException("WaveIntervalSec must be greater than zero.");
-        if (WaveSizeStart < 0 || WaveSizeGrowth < 0 || WaveSizeMax < 0 || TotalBudget < 0 || MaxAliveCap < 0)
+        if (WaveSizeStart < 0 || WaveSizeGrowth < 0 || WaveSizeMax < 0 || WaveCount < 0 || TotalBudget < 0 || MaxAliveCap < 0)
             throw new FormatException($"Spawn counts cannot be negative (row {rowNumber}).");
+        if (MonsterHP < 0f)
+            throw new FormatException("MonsterHP cannot be negative. Use 0 to keep the prefab value.");
+        if (AttackDamage < -1f)
+            throw new FormatException("AttackDamage cannot be less than -1. Use -1 to keep the prefab value.");
     }
 
     private static string GetSpawnStart(List<string> row, Dictionary<string, int> columns)
@@ -93,7 +114,7 @@ public sealed class StageMonsterRule
         string[] required =
         {
             "StageId", "MonsterId", "WaveIntervalSec", "WaveSizeStart",
-            "WaveSizeGrowth", "WaveSizeMax", "TotalBudget", "MaxAliveCap"
+            "WaveSizeGrowth", "WaveSizeMax", "TotalBudget", "MaxAliveCap", "SpawnShape"
         };
 
         foreach (string name in required)
@@ -138,6 +159,44 @@ public sealed class StageMonsterRule
         if (!float.TryParse(value.Trim(), NumberStyles.Float, CultureInfo.InvariantCulture, out float result))
             throw new FormatException($"'{name}' must be a number, but was '{value}'.");
         return result;
+    }
+
+    private static SpawnShape ParseSpawnShape(string value)
+    {
+        string normalized = value.Trim();
+        if (Enum.TryParse(normalized, true, out SpawnShape result) &&
+            Enum.IsDefined(typeof(SpawnShape), result) &&
+            string.Equals(result.ToString(), normalized, StringComparison.OrdinalIgnoreCase))
+            return result;
+
+        throw new FormatException(
+            $"'SpawnShape' must be one of {string.Join(", ", Enum.GetNames(typeof(SpawnShape)))}, but was '{value}'.");
+    }
+
+    private static int GetOptionalInt(
+        List<string> row,
+        Dictionary<string, int> columns,
+        string name,
+        int fallback)
+    {
+        if (!columns.ContainsKey(name))
+            return fallback;
+
+        string value = Get(row, columns, name);
+        return string.IsNullOrWhiteSpace(value) ? fallback : ParseInt(value, name);
+    }
+
+    private static float GetOptionalFloat(
+        List<string> row,
+        Dictionary<string, int> columns,
+        string name,
+        float fallback)
+    {
+        if (!columns.ContainsKey(name))
+            return fallback;
+
+        string value = Get(row, columns, name);
+        return string.IsNullOrWhiteSpace(value) ? fallback : ParseFloat(value, name);
     }
 
     private static List<List<string>> ParseRows(string csv)

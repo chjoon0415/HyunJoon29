@@ -17,6 +17,11 @@ public sealed class MonsterSpawnManager : MonoBehaviour
     [SerializeField, Min(0.01f)] private float outsideViewPadding = 2f;
     [SerializeField, Min(0f)] private float spawnRingWidth = 2f;
 
+    [Header("Spawn Formations")]
+    [SerializeField, Min(0.1f)] private float lineSpacing = 1.25f;
+    [SerializeField, Min(0.1f)] private float crowdSpacing = 0.8f;
+    [SerializeField, Min(0.1f)] private float tornadoArmSpacing = 0.65f;
+
     private readonly List<SpawnState> spawnStates = new List<SpawnState>();
     private float stageElapsedTime;
 
@@ -63,7 +68,9 @@ public sealed class MonsterSpawnManager : MonoBehaviour
 
         foreach (SpawnState state in spawnStates)
         {
-            while (stageElapsedTime >= state.NextWaveTime && state.TotalSpawned < state.Rule.TotalBudget)
+            while (stageElapsedTime >= state.NextWaveTime &&
+                   state.TotalSpawned < state.Rule.TotalBudget &&
+                   state.WaveIndex < state.Rule.WaveCount)
             {
                 RunWave(state);
                 state.WaveIndex++;
@@ -136,11 +143,18 @@ public sealed class MonsterSpawnManager : MonoBehaviour
         int aliveSlots = state.Rule.MaxAliveCap - state.AliveCount;
         int spawnCount = Mathf.Min(requested, budgetRemaining, aliveSlots);
 
+        List<Vector3> positions = GetWaveSpawnPositions(state.Rule.SpawnShape, spawnCount);
+        float tornadoDirection = UnityEngine.Random.value < 0.5f ? -1f : 1f;
         for (int i = 0; i < spawnCount; i++)
         {
-            Vector3 position = GetSpawnPositionOutsideView();
-            MonsterController monster = Instantiate(state.Prefab, position, Quaternion.identity);
-            monster.Initialize(player, destroyedMonster => OnMonsterDestroyed(state, destroyedMonster));
+            MonsterController monster = Instantiate(state.Prefab, positions[i], Quaternion.identity);
+            monster.Initialize(
+                player,
+                destroyedMonster => OnMonsterDestroyed(state, destroyedMonster),
+                state.Rule.MonsterHP,
+                state.Rule.AttackDamage,
+                state.Rule.SpawnShape,
+                tornadoDirection);
             state.TotalSpawned++;
             state.AliveCount++;
         }
@@ -151,29 +165,110 @@ public sealed class MonsterSpawnManager : MonoBehaviour
         state.AliveCount = Mathf.Max(0, state.AliveCount - 1);
     }
 
-    private Vector3 GetSpawnPositionOutsideView()
+    private List<Vector3> GetWaveSpawnPositions(SpawnShape shape, int count)
     {
-        Vector3 playerPosition = player.position;
-        float playerDepth = gameplayCamera.WorldToViewportPoint(playerPosition).z;
-        float farthestCornerDistance = 0f;
+        List<Vector3> positions = new List<Vector3>(count);
+        if (count <= 0)
+            return positions;
 
+        Vector3 playerPosition = player.position;
+        GetViewExtents(playerPosition, out float halfWidth, out float halfHeight, out float outsideRadius);
+        float baseAngle = UnityEngine.Random.Range(0f, Mathf.PI * 2f);
+        int formationSide = UnityEngine.Random.Range(0, 4);
+
+        for (int i = 0; i < count; i++)
+        {
+            Vector2 offset;
+            switch (shape)
+            {
+                case SpawnShape.LINE:
+                    offset = GetLineOffset(i, count, halfWidth, halfHeight, formationSide);
+                    break;
+                case SpawnShape.CROWD:
+                    offset = GetCrowdOffset(i, count, outsideRadius, baseAngle);
+                    break;
+                case SpawnShape.SQUARE:
+                    offset = GetSquareOffset(i, count, halfWidth, halfHeight);
+                    break;
+                case SpawnShape.TORNADO:
+                    offset = GetTornadoOffset(i, count, outsideRadius, baseAngle);
+                    break;
+                default:
+                    float angle = baseAngle + Mathf.PI * 2f * i / count;
+                    float radius = outsideRadius + UnityEngine.Random.Range(0f, spawnRingWidth);
+                    offset = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * radius;
+                    break;
+            }
+
+            positions.Add(new Vector3(playerPosition.x + offset.x, playerPosition.y + offset.y, playerPosition.z));
+        }
+
+        return positions;
+    }
+
+    private void GetViewExtents(Vector3 playerPosition, out float halfWidth, out float halfHeight, out float outsideRadius)
+    {
+        float playerDepth = gameplayCamera.WorldToViewportPoint(playerPosition).z;
+        halfWidth = 0f;
+        halfHeight = 0f;
+        outsideRadius = 0f;
         for (int x = 0; x <= 1; x++)
         {
             for (int y = 0; y <= 1; y++)
             {
-                Vector3 corner = gameplayCamera.ViewportToWorldPoint(new Vector3(x, y, playerDepth));
-                float distance = Vector2.Distance(playerPosition, corner);
-                farthestCornerDistance = Mathf.Max(farthestCornerDistance, distance);
+                Vector3 offset = gameplayCamera.ViewportToWorldPoint(new Vector3(x, y, playerDepth)) - playerPosition;
+                halfWidth = Mathf.Max(halfWidth, Mathf.Abs(offset.x));
+                halfHeight = Mathf.Max(halfHeight, Mathf.Abs(offset.y));
+                outsideRadius = Mathf.Max(outsideRadius, new Vector2(offset.x, offset.y).magnitude);
             }
         }
+        halfWidth += outsideViewPadding;
+        halfHeight += outsideViewPadding;
+        outsideRadius += outsideViewPadding;
+    }
 
-        float radius = farthestCornerDistance + outsideViewPadding + UnityEngine.Random.Range(0f, spawnRingWidth);
-        Vector2 direction = UnityEngine.Random.insideUnitCircle.normalized;
-        if (direction == Vector2.zero)
-            direction = Vector2.right;
+    private Vector2 GetLineOffset(int index, int count, float halfWidth, float halfHeight, int side)
+    {
+        float centeredIndex = index - (count - 1) * 0.5f;
+        switch (side)
+        {
+            case 0: return new Vector2(halfWidth, centeredIndex * lineSpacing);
+            case 1: return new Vector2(centeredIndex * lineSpacing, halfHeight);
+            case 2: return new Vector2(-halfWidth, centeredIndex * lineSpacing);
+            default: return new Vector2(centeredIndex * lineSpacing, -halfHeight);
+        }
+    }
 
-        Vector2 spawnPoint = (Vector2)playerPosition + direction * radius;
-        return new Vector3(spawnPoint.x, spawnPoint.y, playerPosition.z);
+    private Vector2 GetCrowdOffset(int index, int count, float outsideRadius, float baseAngle)
+    {
+        float clusterRadius = Mathf.Max(crowdSpacing, Mathf.Sqrt(Mathf.Max(0, count - 1)) * crowdSpacing);
+        Vector2 center = new Vector2(Mathf.Cos(baseAngle), Mathf.Sin(baseAngle)) *
+                         (outsideRadius + clusterRadius);
+        float angle = index * 2.399963f;
+        float radius = crowdSpacing * Mathf.Sqrt(index);
+        return center + new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * radius;
+    }
+
+    private Vector2 GetSquareOffset(int index, int count, float halfWidth, float halfHeight)
+    {
+        float perimeterPosition = index * 4f / count;
+        int side = Mathf.FloorToInt(perimeterPosition) % 4;
+        float t = perimeterPosition - Mathf.Floor(perimeterPosition);
+        switch (side)
+        {
+            case 0: return new Vector2(Mathf.Lerp(-halfWidth, halfWidth, t), halfHeight);
+            case 1: return new Vector2(halfWidth, Mathf.Lerp(halfHeight, -halfHeight, t));
+            case 2: return new Vector2(Mathf.Lerp(halfWidth, -halfWidth, t), -halfHeight);
+            default: return new Vector2(-halfWidth, Mathf.Lerp(-halfHeight, halfHeight, t));
+        }
+    }
+
+    private Vector2 GetTornadoOffset(int index, int count, float outsideRadius, float baseAngle)
+    {
+        float progress = count > 1 ? index / (float)(count - 1) : 0f;
+        float angle = baseAngle + progress * Mathf.PI * 4f;
+        float radius = outsideRadius + progress * Mathf.Max(spawnRingWidth, tornadoArmSpacing * Mathf.Sqrt(count));
+        return new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * radius;
     }
 
     private void OnValidate()
@@ -181,5 +276,8 @@ public sealed class MonsterSpawnManager : MonoBehaviour
         currentStageId = Mathf.Max(1, currentStageId);
         outsideViewPadding = Mathf.Max(0.01f, outsideViewPadding);
         spawnRingWidth = Mathf.Max(0f, spawnRingWidth);
+        lineSpacing = Mathf.Max(0.1f, lineSpacing);
+        crowdSpacing = Mathf.Max(0.1f, crowdSpacing);
+        tornadoArmSpacing = Mathf.Max(0.1f, tornadoArmSpacing);
     }
 }

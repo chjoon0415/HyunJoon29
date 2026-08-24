@@ -1,3 +1,6 @@
-StageId,MonsterId,SpwanStartSec,WaveIntervalSec,WaveSizeStart,WaveSizeGrowth,WaveSizeMax,TotalBudget,MaxAliveCap
-1,Monster1,1,5,3,1,10,100,30
-1,Monster2,5,5,5,3,15,100,30
+StageId,MonsterId,SpawnStartSec,WaveIntervalSec,WaveSizeStart,WaveSizeGrowth,WaveSizeMax,WaveCount,TotalBudget,MaxAliveCap,MonsterHP,AttackDamage,SpawnShape
+1,Monster1,1,6.74,8,3,108,45,3143,324,10,4.37,CIRCLE
+1,Monster2,60,5.51,11,2,83,44,2320,249,10.7,4.7,LINE
+1,Monster1,120,4.9,14,2,69,37,1769,207,11.4,5.04,CROWD
+1,Monster2,180,3.95,30,1,53,31,1367,159,12.1,5.37,SQUARE
+1,Monster1,240,3.69,36,1,47,17,733,141,12.8,5.7,TORNADO

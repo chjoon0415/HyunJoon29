@@ -23,12 +23,14 @@ public sealed class KillWaveController : MonoBehaviour
     [SerializeField, Range(0.05f, 1f)] private float coreWidthRatio = 0.28f;
 
     private readonly HashSet<int> damagedTargetIds = new HashSet<int>();
+    private readonly List<Collider2D> hitBuffer = new List<Collider2D>(64);
     private PlayerAttackStats attackStats;
     private PlayerDamageService damageService;
     private SpriteRenderer spriteRenderer;
     private LineRenderer glowRenderer;
     private LineRenderer coreRenderer;
     private Material runtimeLineMaterial;
+    private ContactFilter2D damageFilter;
     private float outerRadius;
     private float elapsedTime;
 
@@ -53,6 +55,10 @@ public sealed class KillWaveController : MonoBehaviour
         Rigidbody2D attachedBody = GetComponent<Rigidbody2D>();
         if (attachedBody != null)
             attachedBody.simulated = false;
+
+        damageFilter = new ContactFilter2D();
+        damageFilter.SetLayerMask(damageLayers);
+        damageFilter.useTriggers = true;
     }
 
     public void Initialize(PlayerAttackStats playerAttackStats, PlayerDamageService playerDamageService)
@@ -71,16 +77,17 @@ public sealed class KillWaveController : MonoBehaviour
             return;
 
         elapsedTime += Time.deltaTime;
+        float previousOuterRadius = outerRadius;
         outerRadius = Mathf.Min(maxOuterRadius, outerRadius + expandSpeed * Time.deltaTime);
 
         UpdateVisualRing();
-        DamageTargetsInRing();
+        DamageTargetsInSweptRing(previousOuterRadius);
 
         if (outerRadius >= maxOuterRadius || elapsedTime >= maxDuration)
             Destroy(gameObject);
     }
 
-    private void DamageTargetsInRing()
+    private void DamageTargetsInSweptRing(float previousOuterRadius)
     {
         if (attackStats == null || damageService == null || outerRadius <= 0f)
             return;
@@ -89,13 +96,18 @@ public sealed class KillWaveController : MonoBehaviour
         if (damage <= 0f)
             return;
 
-        float innerRadius = Mathf.Max(0f, outerRadius - ringThickness);
+        // Test the union of every ring position between the previous and current
+        // frame. Using only the current annulus can skip monsters whenever a frame
+        // takes long enough for the wave to advance farther than ringThickness.
+        // This is especially visible when several waves update simultaneously.
+        float innerRadius = Mathf.Max(0f, previousOuterRadius - ringThickness);
         float innerRadiusSquared = innerRadius * innerRadius;
         float outerRadiusSquared = outerRadius * outerRadius;
         Vector2 center = transform.position;
 
-        Collider2D[] hits = Physics2D.OverlapCircleAll(center, outerRadius, damageLayers);
-        foreach (Collider2D hit in hits)
+        hitBuffer.Clear();
+        Physics2D.OverlapCircle(center, outerRadius, damageFilter, hitBuffer);
+        foreach (Collider2D hit in hitBuffer)
         {
             IPlayerAttackTarget target = PlayerAttackTargetUtility.FindInParents(hit);
             if (target == null || target.IsDead || damagedTargetIds.Contains(target.AttackTargetId))
